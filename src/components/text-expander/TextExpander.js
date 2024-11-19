@@ -49,15 +49,8 @@ function Text({
     }
 
     const [isExpanded, setIsExpanded] = useState(expanded);
-
-    function handleWordExpand() {
-        console.log(isExpanded)
-        if (!isExpanded) {
-            const words = children.split(' ');
-            const collapseWords = words.slice(0, 10);
-            return collapseWords.join(' ');
-        }
-    }
+    const displayText = isExpanded ? children 
+        : `${children.split(' ').slice(0, collapsedNumWords).join(' ')}... `;
 
     function handleExpand() {
         setIsExpanded(() => !isExpanded);
@@ -66,7 +59,7 @@ function Text({
     return (
         <div className="main-container">
             <div className={className}>
-                { !isExpanded ? `${handleWordExpand()}... ` : children }
+                { displayText }
                 <span role="button" style={btnStyle} onClick={() => handleExpand()}>{ isExpanded ? collapseButtonText : expandButtonText  }</span>
             </div>
         </div>
